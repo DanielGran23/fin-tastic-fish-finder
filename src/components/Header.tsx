@@ -1,8 +1,24 @@
-
-import { Fish } from "lucide-react";
+import { Fish, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Header() {
+  const isMobile = useIsMobile();
+  
+  if (isMobile) {
+    return (
+      <header className="bg-ocean-600 text-white shadow-md">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2">
+            <Fish className="h-6 w-6 text-white" />
+            <span className="text-lg font-bold">Fin-tastic</span>
+          </Link>
+          <Menu className="h-6 w-6" />
+        </div>
+      </header>
+    );
+  }
+  
   return (
     <header className="bg-white shadow">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
