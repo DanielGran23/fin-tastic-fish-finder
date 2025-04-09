@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Scan } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
 import { scanQRCode } from "@/data/fishData";
 import { useNavigate } from "react-router-dom";
 
