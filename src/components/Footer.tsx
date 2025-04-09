@@ -8,11 +8,11 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center gap-2 mb-4 md:mb-0">
             <Fish className="h-5 w-5" />
-            <span className="font-bold text-lg">Fin-tastic Fish Finder</span>
+            <span className="font-bold text-lg">Fish Trust</span>
           </div>
           
           <div className="text-sm text-ocean-100">
-            <p>© 2025 Fin-tastic Fish Finder</p>
+            <p>© 2025 Fish Trust</p>
             <p>A demo app for sustainable seafood choices</p>
           </div>
         </div>

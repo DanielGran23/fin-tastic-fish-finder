@@ -37,7 +37,7 @@ const LoginPage = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-ocean-50 to-ocean-100 p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-ocean-700 mb-2">Welcome to Fin-tastic</h1>
+          <h1 className="text-3xl font-bold text-ocean-700 mb-2">Welcome to Fish Trust</h1>
           <p className="text-ocean-600">Choose how you want to continue</p>
         </div>
 
