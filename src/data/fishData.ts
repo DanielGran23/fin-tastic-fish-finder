@@ -13,6 +13,11 @@ export interface Fish {
   };
   origin: string;
   fishery: string;
+  fishingMethod: string;
+  co2Emissions: {
+    value: number; // kg CO2 per kg of fish
+    rating: 'Low' | 'Medium' | 'High' | 'Very High';
+  };
   certifications: string[];
   imageUrl: string;
   description: string;
@@ -33,6 +38,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     origin: "Norway",
     fishery: "Fjord Aquaculture",
+    fishingMethod: "Net Pen Aquaculture",
+    co2Emissions: {
+      value: 3.8,
+      rating: "Medium"
+    },
     certifications: ["ASC Certified"],
     imageUrl: "/placeholder.svg",
     description: "Farm-raised Atlantic salmon from Norwegian fjords. Medium environmental impact with good nutrition profile."
@@ -51,6 +61,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     origin: "Bering Sea, Alaska",
     fishery: "North Pacific Sustainable Fishery",
+    fishingMethod: "Midwater Trawl",
+    co2Emissions: {
+      value: 1.2,
+      rating: "Low"
+    },
     certifications: ["MSC Certified", "Ocean Wise"],
     imageUrl: "/placeholder.svg",
     description: "Wild-caught whitefish from sustainable Alaskan fisheries. Low environmental impact and excellent choice for consumers."
@@ -69,6 +84,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     origin: "Mediterranean Sea",
     fishery: "Open Ocean Fishing",
+    fishingMethod: "Long Line",
+    co2Emissions: {
+      value: 5.4,
+      rating: "High"
+    },
     certifications: [],
     imageUrl: "/placeholder.svg",
     description: "Wild-caught predatory fish with declining populations. High mercury content and unsustainable fishing practices."
@@ -87,6 +107,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     origin: "Idaho, USA",
     fishery: "Clear Springs Aquaculture",
+    fishingMethod: "Raceway Pond Culture",
+    co2Emissions: {
+      value: 2.1,
+      rating: "Low"
+    },
     certifications: ["BAP Certified", "Ocean Wise"],
     imageUrl: "/placeholder.svg",
     description: "Farm-raised freshwater trout from land-based tanks. Environmentally responsible with excellent nutrition profile."
@@ -105,6 +130,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     origin: "Gulf of Alaska",
     fishery: "Alaska Sustainable Fisheries",
+    fishingMethod: "Bottom Trawl",
+    co2Emissions: {
+      value: 2.8,
+      rating: "Medium"
+    },
     certifications: ["MSC Certified"],
     imageUrl: "/placeholder.svg",
     description: "Wild-caught whitefish from managed Alaskan fisheries. Good alternative to overfished Atlantic cod."
