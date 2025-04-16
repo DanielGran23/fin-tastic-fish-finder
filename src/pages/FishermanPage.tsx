@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut, Plus, Fish } from "lucide-react";
+import { LogOut, Plus, Fish, MapPin, AlertCircle } from "lucide-react";
 
 interface CatchEntry {
   id: string;
@@ -17,6 +17,10 @@ interface CatchEntry {
   date: string;
   weight: string;
   notes: string;
+  coordinates?: {
+    latitude: number | null;
+    longitude: number | null;
+  };
 }
 
 const FishermanPage = () => {
@@ -34,6 +38,12 @@ const FishermanPage = () => {
     weight: "",
     notes: ""
   });
+  const [coordinates, setCoordinates] = useState<{latitude: number | null, longitude: number | null}>({
+    latitude: null, 
+    longitude: null
+  });
+  const [isGettingLocation, setIsGettingLocation] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setNewCatch({
@@ -49,12 +59,50 @@ const FishermanPage = () => {
     });
   };
 
+  const getLocation = () => {
+    setIsGettingLocation(true);
+    setLocationError(null);
+
+    if (!navigator.geolocation) {
+      setLocationError("Geolocation is not supported by your browser");
+      setIsGettingLocation(false);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCoordinates({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        });
+        setIsGettingLocation(false);
+        toast({
+          title: "Location captured",
+          description: `Lat: ${position.coords.latitude.toFixed(4)}, Lng: ${position.coords.longitude.toFixed(4)}`,
+        });
+      },
+      (error) => {
+        setLocationError(`Error getting location: ${error.message}`);
+        setIsGettingLocation(false);
+        toast({
+          title: "Location error",
+          description: error.message,
+          variant: "destructive"
+        });
+      }
+    );
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     const catchEntry: CatchEntry = {
       id: Date.now().toString(),
-      ...newCatch
+      ...newCatch,
+      coordinates: {
+        latitude: coordinates.latitude,
+        longitude: coordinates.longitude
+      }
     };
     
     const updatedCatches = [...catches, catchEntry];
@@ -74,6 +122,7 @@ const FishermanPage = () => {
       weight: "",
       notes: ""
     });
+    setCoordinates({ latitude: null, longitude: null });
     setShowForm(false);
   };
 
@@ -84,6 +133,11 @@ const FishermanPage = () => {
       title: "Logged out",
       description: "You have been logged out successfully."
     });
+  };
+
+  const formatCoordinates = (coords: {latitude: number | null, longitude: number | null} | undefined) => {
+    if (!coords || coords.latitude === null || coords.longitude === null) return "Not recorded";
+    return `${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)}`;
   };
 
   return (
@@ -113,6 +167,10 @@ const FishermanPage = () => {
                           <p className="text-sm text-gray-500">
                             {entry.location} • {entry.date} • {entry.weight}kg
                           </p>
+                          <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+                            <MapPin className="h-3.5 w-3.5" />
+                            <span>GPS: {formatCoordinates(entry.coordinates)}</span>
+                          </div>
                         </div>
                       </div>
                       {entry.notes && <p className="text-sm mt-2">{entry.notes}</p>}
@@ -174,6 +232,33 @@ const FishermanPage = () => {
                   placeholder="Fishing location"
                   required
                 />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="gps">GPS Coordinates</Label>
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 p-3 bg-gray-50 rounded-md border text-sm">
+                    {coordinates.latitude !== null 
+                      ? `Lat: ${coordinates.latitude.toFixed(4)}, Lng: ${coordinates.longitude !== null ? coordinates.longitude.toFixed(4) : ''}` 
+                      : "No coordinates captured"}
+                  </div>
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={getLocation} 
+                    disabled={isGettingLocation}
+                    className="shrink-0"
+                  >
+                    <MapPin className="h-4 w-4 mr-2" />
+                    {isGettingLocation ? "Getting..." : "Get Location"}
+                  </Button>
+                </div>
+                {locationError && (
+                  <div className="text-sm text-red-500 flex items-center gap-1 mt-1">
+                    <AlertCircle className="h-3.5 w-3.5" />
+                    {locationError}
+                  </div>
+                )}
               </div>
               
               <div className="space-y-2">
