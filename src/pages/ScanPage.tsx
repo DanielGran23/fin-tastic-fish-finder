@@ -1,9 +1,14 @@
 
 import { QRCodeScanner } from "@/components/QRCodeScanner";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useEffect } from "react";
 
 const ScanPage = () => {
   const isMobile = useIsMobile();
+  
+  useEffect(() => {
+    console.log("ScanPage mounted");
+  }, []);
   
   return (
     <div className={`${isMobile ? 'h-full pt-4' : 'container mx-auto px-4 py-16'}`}>

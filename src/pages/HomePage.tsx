@@ -11,6 +11,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   
   const handleScanClick = () => {
+    console.log("Navigating to /scan page");
     navigate('/scan');
   };
   
