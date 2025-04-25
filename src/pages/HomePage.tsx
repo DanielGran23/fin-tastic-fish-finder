@@ -1,9 +1,8 @@
-
 import { Button } from "@/components/ui/button";
 import { QRCodeScanner } from "@/components/QRCodeScanner";
 import { RecentScans } from "@/components/RecentScans";
 import { Link, useNavigate } from "react-router-dom";
-import { Scan, Fish, Award, MapPin } from "lucide-react";
+import { Scan, Fish, Award, MapPin, Sailboat, Waves } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const HomePage = () => {
@@ -17,11 +16,30 @@ const HomePage = () => {
   
   return (
     <div className="flex flex-col">
-      {/* Hero section */}
-      <div className="relative bg-gradient-to-b from-ocean-600 to-ocean-800 py-8 md:py-16">
-        <div className="absolute inset-0 opacity-10 wave-pattern animate-wave"></div>
-        <div className="container mx-auto px-4 text-white text-center">
-          <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">Know Your Fish</h1>
+      {/* Hero section with animated fish background */}
+      <div className="relative bg-gradient-to-b from-ocean-600 to-ocean-800 py-8 md:py-16 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="wave-pattern animate-wave"></div>
+          <div className="absolute inset-0 opacity-20">
+            {[...Array(6)].map((_, i) => (
+              <Fish
+                key={i}
+                className={`absolute text-white w-8 h-8 animate-float-${i % 3}`}
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${i * 0.5}s`
+                }}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="container mx-auto px-4 text-white text-center relative z-10">
+          <div className="flex items-center justify-center mb-4">
+            <Sailboat className="h-8 w-8 mr-2 text-ocean-200" />
+            <h1 className="text-3xl md:text-5xl font-bold">Know Your Fish</h1>
+            <Sailboat className="h-8 w-8 ml-2 text-ocean-200 transform scale-x-[-1]" />
+          </div>
           <p className="text-lg md:text-2xl mb-6 md:mb-8 max-w-2xl mx-auto">
             Scan to discover sustainability metrics.
           </p>
@@ -36,11 +54,16 @@ const HomePage = () => {
         </div>
       </div>
       
-      {/* Features section */}
-      <div className="bg-white py-8 md:py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-ocean-800">
+      {/* Features section with enhanced styling */}
+      <div className="bg-white py-8 md:py-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <Waves className="absolute text-ocean-400 w-full h-full" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <h2 className="text-xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-ocean-800 flex items-center justify-center">
+            <Fish className="h-6 w-6 md:h-8 md:w-8 mr-2 text-ocean-600" />
             Make Informed Choices
+            <Fish className="h-6 w-6 md:h-8 md:w-8 ml-2 text-ocean-600 transform scale-x-[-1]" />
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
@@ -77,10 +100,11 @@ const HomePage = () => {
         </div>
       </div>
       
-      {/* Recent scans section */}
-      <div className="bg-gray-50 py-8 md:py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-ocean-800">
+      {/* Recent scans section with enhanced ocean theme */}
+      <div className="bg-gradient-to-b from-gray-50 to-ocean-50 py-8 md:py-16 relative">
+        <div className="container mx-auto px-4 relative z-10">
+          <h2 className="text-xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-ocean-800 flex items-center justify-center">
+            <Fish className="h-6 w-6 md:h-8 md:w-8 mr-2 text-ocean-600" />
             Your Recent Scans
           </h2>
           
