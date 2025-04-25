@@ -1,13 +1,14 @@
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Fish, fishDatabase } from "@/data/fishData";
+import { Fish, fishDatabase, getPurchasedFish } from "@/data/fishData";
 import { Clock, Fish as FishIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 
 export function RecentScans() {
   const [recentFish, setRecentFish] = useState<Fish[]>([]);
+  const [purchasedFish, setPurchasedFish] = useState<string[]>([]);
   
   useEffect(() => {
     // Get recent scans from localStorage
@@ -17,6 +18,10 @@ export function RecentScans() {
       .filter((fish: Fish | undefined) => fish !== undefined);
     
     setRecentFish(fishData);
+    
+    // Get purchased fish
+    const purchased = getPurchasedFish();
+    setPurchasedFish(purchased);
   }, []);
 
   if (recentFish.length === 0) {
@@ -62,16 +67,23 @@ export function RecentScans() {
                   <p className="font-medium text-ocean-700">{fish.name}</p>
                   <p className="text-xs text-gray-500">{fish.origin}</p>
                 </div>
-                <Badge 
-                  className={
-                    fish.recommendation === "Recommended" ? "bg-green-100 text-green-800 hover:bg-green-200" :
-                    fish.recommendation === "Consider Alternatives" ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200" :
-                    "bg-red-100 text-red-800 hover:bg-red-200"
-                  }
-                  variant="outline"
-                >
-                  {fish.recommendation}
-                </Badge>
+                <div className="flex gap-2">
+                  {purchasedFish.includes(fish.id) && (
+                    <Badge className="bg-ocean-100 text-ocean-700">
+                      Purchased
+                    </Badge>
+                  )}
+                  <Badge 
+                    className={
+                      fish.recommendation === "Recommended" ? "bg-green-100 text-green-800 hover:bg-green-200" :
+                      fish.recommendation === "Consider Alternatives" ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200" :
+                      "bg-red-100 text-red-800 hover:bg-red-200"
+                    }
+                    variant="outline"
+                  >
+                    {fish.recommendation}
+                  </Badge>
+                </div>
               </div>
             </Link>
           ))}

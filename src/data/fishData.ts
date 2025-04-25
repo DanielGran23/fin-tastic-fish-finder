@@ -21,6 +21,10 @@ export interface Fish {
   certifications: string[];
   imageUrl: string;
   description: string;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
 }
 
 export const fishDatabase: { [key: string]: Fish } = {
@@ -45,7 +49,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     certifications: ["ASC Certified"],
     imageUrl: "/placeholder.svg",
-    description: "Farm-raised Atlantic salmon from Norwegian fjords. Medium environmental impact with good nutrition profile."
+    description: "Farm-raised Atlantic salmon from Norwegian fjords. Medium environmental impact with good nutrition profile.",
+    coordinates: {
+      lat: 60.472,
+      lng: 8.468
+    }
   },
   "FISH002": {
     id: "FISH002",
@@ -68,7 +76,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     certifications: ["MSC Certified", "Ocean Wise"],
     imageUrl: "/placeholder.svg",
-    description: "Wild-caught whitefish from sustainable Alaskan fisheries. Low environmental impact and excellent choice for consumers."
+    description: "Wild-caught whitefish from sustainable Alaskan fisheries. Low environmental impact and excellent choice for consumers.",
+    coordinates: {
+      lat: 58.325,
+      lng: -162.417
+    }
   },
   "FISH003": {
     id: "FISH003",
@@ -91,7 +103,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     certifications: [],
     imageUrl: "/placeholder.svg",
-    description: "Wild-caught predatory fish with declining populations. High mercury content and unsustainable fishing practices."
+    description: "Wild-caught predatory fish with declining populations. High mercury content and unsustainable fishing practices.",
+    coordinates: {
+      lat: 36.897,
+      lng: 11.523
+    }
   },
   "FISH004": {
     id: "FISH004",
@@ -114,7 +130,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     certifications: ["BAP Certified", "Ocean Wise"],
     imageUrl: "/placeholder.svg",
-    description: "Farm-raised freshwater trout from land-based tanks. Environmentally responsible with excellent nutrition profile."
+    description: "Farm-raised freshwater trout from land-based tanks. Environmentally responsible with excellent nutrition profile.",
+    coordinates: {
+      lat: 42.954,
+      lng: -114.713
+    }
   },
   "FISH005": {
     id: "FISH005",
@@ -137,7 +157,11 @@ export const fishDatabase: { [key: string]: Fish } = {
     },
     certifications: ["MSC Certified"],
     imageUrl: "/placeholder.svg",
-    description: "Wild-caught whitefish from managed Alaskan fisheries. Good alternative to overfished Atlantic cod."
+    description: "Wild-caught whitefish from managed Alaskan fisheries. Good alternative to overfished Atlantic cod.",
+    coordinates: {
+      lat: 58.767,
+      lng: -152.583
+    }
   }
 };
 
@@ -145,3 +169,24 @@ export const fishDatabase: { [key: string]: Fish } = {
 export const scanQRCode = (qrCode: string): Fish | null => {
   return fishDatabase[qrCode] || null;
 };
+
+// Function to get purchased fish from localStorage
+export const getPurchasedFish = (): string[] => {
+  return JSON.parse(localStorage.getItem('purchasedFish') || '[]');
+};
+
+// Function to update purchased fish in localStorage
+export const togglePurchasedFish = (fishId: string) => {
+  const purchasedFish = getPurchasedFish();
+  
+  const index = purchasedFish.indexOf(fishId);
+  if (index > -1) {
+    purchasedFish.splice(index, 1); // Remove if already purchased
+  } else {
+    purchasedFish.push(fishId); // Add to purchased
+  }
+  
+  localStorage.setItem('purchasedFish', JSON.stringify(purchasedFish));
+  return purchasedFish;
+};
+

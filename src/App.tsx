@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import ScanPage from "./pages/ScanPage";
 import HistoryPage from "./pages/HistoryPage";
 import FishDetailPage from "./pages/FishDetailPage";
+import WorldMapPage from "./pages/WorldMapPage";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/LoginPage";
 import FishermanPage from "./pages/FishermanPage";
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/scan" element={<ScanPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/fish/:id" element={<FishDetailPage />} />
+            <Route path="/world-map" element={<WorldMapPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
