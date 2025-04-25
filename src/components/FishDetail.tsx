@@ -1,9 +1,8 @@
-
 import { Fish } from "@/data/fishData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, BarChart2, ChefHat, Fish as FishIcon, Award, ThumbsUp, ThumbsDown, Anchor, Cloud } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { SustainabilityScore } from "./SustainabilityScore";
 
 interface FishDetailProps {
   fish: Fish;
@@ -78,6 +77,8 @@ export function FishDetail({ fish }: FishDetailProps) {
         </div>
         
         <div className="w-full md:w-2/3 space-y-4">
+          <SustainabilityScore fish={fish} />
+          
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2">
@@ -162,7 +163,6 @@ export function FishDetail({ fish }: FishDetailProps) {
             </CardContent>
           </Card>
           
-          {/* New section for fishing method and emissions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader className="pb-2">
