@@ -1,8 +1,9 @@
+
 import { Button } from "@/components/ui/button";
 import { QRCodeScanner } from "@/components/QRCodeScanner";
 import { RecentScans } from "@/components/RecentScans";
 import { Link, useNavigate } from "react-router-dom";
-import { Scan, Fish, Award, MapPin, Waves } from "lucide-react";
+import { Scan, Fish, Award, MapPin } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const HomePage = () => {
@@ -15,17 +16,11 @@ const HomePage = () => {
   };
   
   return (
-    <div className="flex flex-col min-h-screen relative overflow-hidden">
-      {/* Ocean Wave Background */}
-      <div className="absolute inset-0 z-0 opacity-10">
-        <div className="wave-pattern absolute inset-0 animate-wave"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent to-ocean-50/30"></div>
-      </div>
-
+    <div className="flex flex-col">
       {/* Hero section */}
-      <div className="relative bg-gradient-to-b from-ocean-600 to-ocean-800 py-8 md:py-16 z-10">
+      <div className="relative bg-gradient-to-b from-ocean-600 to-ocean-800 py-8 md:py-16">
         <div className="absolute inset-0 opacity-10 wave-pattern animate-wave"></div>
-        <div className="container mx-auto px-4 text-white text-center relative z-20">
+        <div className="container mx-auto px-4 text-white text-center">
           <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">Know Your Fish</h1>
           <p className="text-lg md:text-2xl mb-6 md:mb-8 max-w-2xl mx-auto">
             Scan to discover sustainability metrics.
