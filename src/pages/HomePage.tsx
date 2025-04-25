@@ -4,6 +4,7 @@ import { RecentScans } from "@/components/RecentScans";
 import { Link, useNavigate } from "react-router-dom";
 import { Scan, Fish, Award, MapPin, Sailboat, Waves } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ScoresExplanation } from "@/components/ScoresExplanation";
 
 const HomePage = () => {
   const isMobile = useIsMobile();
@@ -99,6 +100,9 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      
+      {/* Add the new ScoresExplanation component before the Recent scans section */}
+      <ScoresExplanation />
       
       {/* Recent scans section with enhanced ocean theme */}
       <div className="bg-gradient-to-b from-gray-50 to-ocean-50 py-8 md:py-16 relative">
