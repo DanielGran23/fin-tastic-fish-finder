@@ -38,7 +38,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4 text-white text-center relative z-10">
           <div className="flex items-center justify-center mb-4">
             <Sailboat className="h-8 w-8 mr-2 text-ocean-200" />
-            <h1 className="text-3xl md:text-5xl font-bold">Know Your Fish</h1>
+            <h1 className="text-3xl md:text-5xl font-bold">Make Informed Choices</h1>
             <Sailboat className="h-8 w-8 ml-2 text-ocean-200 transform scale-x-[-1]" />
           </div>
           <p className="text-lg md:text-2xl mb-6 md:mb-8 max-w-2xl mx-auto">
